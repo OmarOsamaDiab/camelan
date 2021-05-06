@@ -16,7 +16,7 @@ module.exports = {
             tableName: 'migrations'
         }
     },
-    testing: {
+    staging: {
         client: 'mysql2',
         connection: {
             host: process.env.MYSQL_HOST || '127.0.0.1',
