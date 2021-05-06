@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  server:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    networks:
+      - my_net
+  db:
+    image: mysql:8
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - datavolume:/var/lib/mysql
+    networks:
+      - my_net
+    env_file: 
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+networks:
+  my_net:
+    driver: bridge
+volumes:
+  datavolume:
+    driver: local
