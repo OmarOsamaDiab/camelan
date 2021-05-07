@@ -3,7 +3,6 @@ exports.up = function (knex) {
         .createTable("user", (table) => {
             table.increments('id').primary()
             table.string('name').notNullable()
-            table.string('phone').notNullable().unique()
             table.timestamps(true, true)
         });
 };

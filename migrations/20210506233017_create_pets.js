@@ -3,12 +3,14 @@ exports.up = function (knex) {
         .createTable("pet", (table) => {
             table.increments('id').primary()
             table.text("description").nullable()
-            table.timestamps(true, true)
             table.integer('owner').unsigned();
+
             table.foreign('owner')
                 .references('user.id')
-                .onDelete('SET NULL')
-                .onUpdate('SET NULL')
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE')
+
+            table.timestamps(true, true)
         });
 };
 

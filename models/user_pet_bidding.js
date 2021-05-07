@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const knex = require('../index')
+const knex = require('./index')
 Model.knex(knex)
 
 class UserPetBidding extends Model {
@@ -16,8 +16,13 @@ const insertBiddingAndFetch = async ({ petId, cost, buyer }) => {
     }
 }
 
-const getBedding = async (petId) => {
-    UserPetBidding.query().where('petId', petId)
+
+const deleteUserPetBidding = async () => {
+    try {
+        return UserPetBidding.query().delete()
+    } catch (e) {
+        return e
+    }
 }
 
-module.exports = { insertBiddingAndFetch, getBedding }
+module.exports = { insertBiddingAndFetch, deleteUserPetBidding }

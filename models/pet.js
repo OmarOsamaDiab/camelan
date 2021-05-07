@@ -1,4 +1,5 @@
 const { Model } = require('objection')
+const { on } = require('./index')
 const knex = require('./index')
 Model.knex(knex)
 
@@ -7,24 +8,22 @@ class Pet extends Model {
     static get tableName() {
         return 'pet'
     }
+}
 
-    static get relationMappings() {
-        return {
-            bidding: {
-                relation: Model.HasManyRelation,
-                modelClass: require('./user_pet_bidding'),
-                join: {
-                    from: 'pet.id',
-                    to: 'user_pet_bidding.petId',
-                }
-            },
-        }
+const insertPetAndFetch = async owner => {
+    try {
+        return Pet.query().insertAndFetch({ owner })
+    } catch (e) {
+        return e
     }
 }
 
-const insertPetAndFetch = async ({ owner, name }) => {
+const findBidding = async petId => {
     try {
-        return Pet.query().insertAndFetch({ owner, name })
+        return Pet.query()
+            .distinct("upb.cost")
+            .join("user_pet_bidding as upb", 'pet.id', 'upb.petId')
+            .where('pet.id', petId)
     } catch (e) {
         return e
     }
@@ -37,16 +36,5 @@ const deletePet = async () => {
         return e
     }
 }
-
-const findBidding = async petId => {
-    try {
-        return Pet.query().where('id', petId).withGraphFetched("bidding")
-    } catch (e) {
-        return e
-    }
-}
-
-
-
 
 module.exports = { insertPetAndFetch, deletePet, findBidding }

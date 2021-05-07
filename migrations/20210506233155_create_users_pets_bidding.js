@@ -6,15 +6,14 @@ exports.up = function (knex) {
             table.integer('petId').unsigned();
             table.integer('cost').unsigned();
             table.integer('buyer').unsigned();
-
             table.foreign('buyer')
                 .references('user.id')
                 .onDelete('SET NULL')
                 .onUpdate('SET NULL')
             table.foreign('petId')
                 .references('pet.id')
-                .onDelete('SET NULL')
-                .onUpdate('SET NULL')
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE')
             table.timestamps(true, true)
         });
 };

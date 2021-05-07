@@ -22,9 +22,9 @@ class User extends Model {
     }
 }
 
-const insertUserAndFetch = async ({ name, phone }) => {
+const insertUserAndFetch = async name => {
     try {
-        return User.query().insertAndFetch({ phone, name })
+        return User.query().insertAndFetch({ name })
     } catch (e) {
         return e
     }
