@@ -22,5 +22,13 @@ class User extends Model {
     }
 }
 
+const insertUserAndFetch = async ({ name, phone }) => {
+    try {
+        return User.query().insertAndFetch({ phone, name })
+    } catch (e) {
+        return e
+    }
+}
 
-module.exports = { User }
+
+module.exports = { insertUserAndFetch }

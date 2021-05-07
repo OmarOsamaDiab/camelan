@@ -22,6 +22,13 @@ class Pet extends Model {
     }
 }
 
+const insertPetAndFetch = async ({ owner, name }) => {
+    try {
+        return Pet.query().insertAndFetch({ owner, name })
+    } catch (e) {
+        return e
+    }
+}
 
 
-module.exports = { Pet }
+module.exports = { insertPetAndFetch }

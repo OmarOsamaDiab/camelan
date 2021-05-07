@@ -1,0 +1,79 @@
+{
+    "swagger":"2.0",
+    "info":{
+       "version":"1.0.0",
+       "title":"petstore",
+       "description":"petstore APIs"
+    },
+    "host":"localhost:3000",
+    "basePath":"/",
+    "tags":[
+       {
+          "name":"Users",
+          "description":"API for allowing Users to bid on a certain pet"
+       }
+    ],
+    "schemes":[
+       "http"
+    ],
+    "consumes":[
+       "application/json"
+    ],
+    "produces":[
+       "application/json"
+    ],
+    "paths":{
+       "/user/{id}/pet":{
+          "post":{
+             "tags":[
+                "User"
+             ],
+             "description":"allow user to Send new biding to a specific pet",
+             "parameters":[
+                {
+                   "name":"id",
+                   "in":"path",
+                   "type": "integer",
+                   "required":true,
+                   "description":"the id of user who wants to send a bidding"
+                },
+                {
+                   "name":"petId",
+                   "in":"body",
+                   "type":"integer",
+                   "description":"specify the petId that the user will bid for"
+                },
+                {
+                    "name":"owner",
+                    "in":"body",
+                    "type":"integer",
+                    "description":"specify the owner of the pet that the user will bid for"
+                },
+                {
+                    "name":"cost",
+                    "in":"body",
+                    "type":"integer",
+                    "description":"specify the cost of the pet that the user will bid for"
+                 }
+             ],
+             "produces":[
+                "application/json"
+             ],
+             "responses":{
+                "201":{
+                   "description":"bid sent successfully"
+                },
+                "400":{
+                  "description":"bad request"
+                },
+                "404":{
+                  "description":"not found"   
+                },
+                "500":{
+                  "description":"Internal server error"      
+                }
+             }
+          }
+       }
+    }
+ }

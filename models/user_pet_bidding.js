@@ -8,12 +8,16 @@ class UserPetBidding extends Model {
     }
 }
 
-const addbidding = async ({ petId, owner, buyer }) => {
+const insertBiddingAndFetch = async ({ petId, cost, buyer }) => {
     try {
-        return UserPetBidding.query().insert({ petId, owner, buyer })
+        return UserPetBidding.query().insertAndFetch({ petId, cost, buyer })
     } catch (e) {
         return e
     }
 }
 
-module.exports = { UserPetBidding, addbidding }
+const getBedding = async (petId) => {
+    UserPetBidding.query().where('petId', petId)
+}
+
+module.exports = { insertBiddingAndFetch, getBedding }

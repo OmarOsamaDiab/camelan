@@ -19,3 +19,5 @@ server.listen(port)
 server.on('listening', () => {
     console.log(`server is running on port ${port}`)
 })
+
+module.exports = server
