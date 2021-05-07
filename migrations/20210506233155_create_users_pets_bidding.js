@@ -3,18 +3,18 @@ exports.up = function (knex) {
         .createTable("user_pet_bidding", (table) => {
             table.increments('id').primary()
 
-            table.integer('petId').unsigned().notNullable();
-            table.integer('cost').unsigned().notNullable();
-            table.integer('buyer').unsigned().notNullable();
+            table.integer('petId').unsigned();
+            table.integer('cost').unsigned();
+            table.integer('buyer').unsigned();
 
             table.foreign('buyer')
                 .references('user.id')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE')
+                .onDelete('SET NULL')
+                .onUpdate('SET NULL')
             table.foreign('petId')
                 .references('pet.id')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE')
+                .onDelete('SET NULL')
+                .onUpdate('SET NULL')
             table.timestamps(true, true)
         });
 };

@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const knex = require('../index')
+const knex = require('./index')
 Model.knex(knex)
 
 class User extends Model {
@@ -30,5 +30,12 @@ const insertUserAndFetch = async ({ name, phone }) => {
     }
 }
 
+const deleteUser = async () => {
+    try {
+        return User.query().delete()
+    } catch (e) {
+        return e
+    }
+}
 
-module.exports = { insertUserAndFetch }
+module.exports = { insertUserAndFetch, deleteUser }

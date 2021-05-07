@@ -4,11 +4,11 @@ exports.up = function (knex) {
             table.increments('id').primary()
             table.text("description").nullable()
             table.timestamps(true, true)
-            table.integer('owner').unsigned().notNullable();
+            table.integer('owner').unsigned();
             table.foreign('owner')
                 .references('user.id')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE')
+                .onDelete('SET NULL')
+                .onUpdate('SET NULL')
         });
 };
 

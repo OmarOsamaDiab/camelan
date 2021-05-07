@@ -4,7 +4,7 @@
   "description": "this a simple task",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --verbose",
+    "test": "jest --watchAll",
     "dev": "nodemon index.js"
   },
   "author": "Omar Osama",
@@ -15,7 +15,7 @@
     "joi": "^17.3.0",
     "knex": "^0.21.14",
     "mysql2": "^2.2.5",
-    "objection": "^2.2.3",
+    "objection": "^2.2.15",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {

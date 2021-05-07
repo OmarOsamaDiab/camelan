@@ -7,6 +7,6 @@ exports.BiddingNewPet = async (req, res, next) => {
         const newBidding = await insertBiddingAndFetch({ petId, buyer, cost })
         return res.status(201).json(newBidding)
     } catch (error) {
-        return res.status(500).send("something went wrong")
+        return res.status(500).send(error)
     }
 }

@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const knex = require('../index')
+const knex = require('./index')
 Model.knex(knex)
 
 class Pet extends Model {
@@ -12,7 +12,7 @@ class Pet extends Model {
         return {
             bidding: {
                 relation: Model.HasManyRelation,
-                modelClass: require('./pet'),
+                modelClass: require('./user_pet_bidding'),
                 join: {
                     from: 'pet.id',
                     to: 'user_pet_bidding.petId',
@@ -30,5 +30,23 @@ const insertPetAndFetch = async ({ owner, name }) => {
     }
 }
 
+const deletePet = async () => {
+    try {
+        return Pet.query().delete()
+    } catch (e) {
+        return e
+    }
+}
 
-module.exports = { insertPetAndFetch }
+const findBidding = async petId => {
+    try {
+        return Pet.query().where('id', petId).withGraphFetched("bidding")
+    } catch (e) {
+        return e
+    }
+}
+
+
+
+
+module.exports = { insertPetAndFetch, deletePet, findBidding }
